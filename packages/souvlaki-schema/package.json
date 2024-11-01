@@ -1,0 +1,7 @@
+{
+    "name": "souvlaki-schema",
+    "type": "module",
+    "scripts": {
+        "generate": "bun run ./src/generate.ts"
+    }
+}

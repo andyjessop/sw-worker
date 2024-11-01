@@ -1,24 +1,41 @@
 {
-  "name": "sw",
-  "license": "ISC",
-  "type": "module",
-  "scripts": {
-    "ui:dev": "bun run --cwd ./apps/ui dev"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.8.2",
-    "@types/bun": "^1.1.5",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.4",
-    "vite-plugin-pwa": "^0.20.1"
-  },
-  "workspaces": ["apps/*", "packages/*"],
-  "dependencies": {
-    "hono": "^4.4.8",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  }
+	"name": "sw",
+	"license": "ISC",
+	"type": "module",
+	"scripts": {
+		"cli:start": "bun run --cwd ./apps/cli start",
+		"service-worker:build-service-worker": "bun run --cwd ./packages/service-worker build-service-worker",
+		"souvlaki-schema:generate": "bun run --cwd ./packages/souvlaki-schema generate",
+		"utils:mutex:test": "bun run --cwd ./packages/utils/mutex test",
+		"utils-function:test": "bun run --cwd ./packages/utils-function test",
+		"utils-string:test": "bun run --cwd ./packages/utils-string test",
+		"ui:dev": "bun run --cwd ./apps/ui dev"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.2",
+		"@types/bun": "^1.1.5",
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
+		"@vitejs/plugin-react": "^4.3.1",
+		"typescript": "^5.2.2",
+		"vite": "^5.3.4",
+		"vite-plugin-pwa": "^0.20.1",
+		"wrangler": "^3.68.0"
+	},
+	"workspaces": ["apps/*", "packages/*"],
+	"dependencies": {
+		"@types/minimist": "^1.2.5",
+		"dedent": "^1.5.3",
+		"effect": "^3.10.0",
+		"esbuild": "^0.23.0",
+		"hono": "^4.4.8",
+		"json-schema-to-zod": "^2.3.1",
+		"minimist": "^1.2.8",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"rxjs": "^7.8.1",
+		"unenv": "^1.10.0",
+		"zod": "^3.23.8",
+		"zod-to-json-schema": "^3.23.2"
+	}
 }

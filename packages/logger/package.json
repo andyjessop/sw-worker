@@ -1,5 +1,3 @@
 {
-	"name": "logger",
-	"type": "module",
-	"main": "src/index.ts"
+  "name": "logger"
 }

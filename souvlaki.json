@@ -1,0 +1,171 @@
+{
+	"$schema": "./packages/souvlaki-schema/dist/souvlaki-schema.json",
+	"compatibility_date": "2024-01-01",
+	"compatbility_flags": ["nodejs_compat"],
+	"global": {
+		"TEST_AVATARS_CACHE": {
+			"type": "kv"
+		},
+		"GAMES": {
+			"type": "durable_object",
+			"class_name": "Games"
+		},
+		"DB_PASSWORD": {
+			"type": "secret",
+			"env": "DB_PASSWORD"
+		},
+		"PAGE_TITLE": {
+			"type": "variable",
+			"value": "My Game"
+		}
+	},
+	"workers": [
+		{
+			"name": "worker_a",
+			"bindings": {
+				"AVATARS_CACHE": "global:TEST_AVATARS_CACHE",
+				"AVATARS_DB": {
+					"type": "d1_database",
+					"database_name": "avatars",
+					"migrations_table": "avatars_migrations",
+					"migrations_dir": "./worker-a/migrations"
+				},
+				"GAMES": "global:GAMES",
+				"WORKER_B": {
+					"type": "worker",
+					"name": "worker_b"
+				}
+			},
+			"github": {
+				"repo": "username/repo-name"
+			},
+			"environments": {
+				"development": {
+					"dev": {
+						"main": "./worker-a/nested/src/index.ts",
+						"base_dir": "./worker-a/nested"
+					},
+					"secrets": {
+						"DB_PASSWORD": "global:DB_PASSWORD"
+					},
+					"variables": {
+						"DB_URL": {
+							"value": "http://local.db.url"
+						},
+						"PAGE_TITLE": "global:PAGE_TITLE"
+					},
+					"routes": ["*.workers.dev"]
+				},
+				"staging": {
+					"github": {
+						"branch": "main",
+						"deploy_on_push": true
+					},
+					"build": {
+						"command": "wrangler build",
+						"cwd": "./worker-a",
+						"built_worker": "./worker-a/dist/index.js"
+					},
+					"secrets": {
+						"STAGING_DB_PASSWORD": {
+							"env": "STAGING_DB_PASSWORD"
+						}
+					},
+					"variables": {
+						"DB_URL": {
+							"value": "https://staging.db.url"
+						},
+						"PAGE_TITLE": "global:PAGE_TITLE"
+					},
+					"routes": ["https://*.staging.custom-domain.com/*"]
+				},
+				"production": {
+					"github": {
+						"branch": "production",
+						"deploy_on_push": true
+					},
+					"build": {
+						"command": "turbo build -F worker-a",
+						"cwd": ".",
+						"built_worker": "./worker-a/dist/index.js"
+					},
+					"bindings": {
+						"AVATARS_CACHE": {
+							"type": "kv"
+						}
+					},
+					"secrets": {
+						"WORKER_A_DB_PASSWORD": {
+							"env": "WORKER_A_DB_PASSWORD"
+						}
+					},
+					"variables": {
+						"DB_URL": {
+							"value": "https://prod.db.url"
+						},
+						"PAGE_TITLE": "global:PAGE_TITLE"
+					},
+					"routes": [
+						"https://custom-domain.com/*",
+						"https://www.custom-domain.com/*"
+					]
+				}
+			}
+		},
+		{
+			"name": "worker_b",
+			"compatibility_date": "2023-01-01",
+			"compatbility_flags": ["no_nodejs_compat"],
+			"main": "worker-b/src/index.ts",
+			"bindings": {
+				"API_CACHE": {
+					"type": "kv"
+				},
+				"AVATARS_CACHE": "global:TEST_AVATARS_CACHE",
+				"GAMES": "global:GAMES"
+			},
+			"environments": {
+				"development": {
+					"secrets": {
+						"DEV_API_KEY": {
+							"env": "DEV_API_KEY"
+						}
+					},
+					"variables": {
+						"API_URL": {
+							"value": "https://dev.api.url"
+						}
+					},
+					"routes": ["worker-b.workers.dev", "*.dev.api.custom-domain.com/*"]
+				},
+				"staging": {
+					"secrets": {
+						"STAGING_API_KEY": {
+							"env": "STAGING_API_KEY"
+						}
+					},
+					"variables": {
+						"API_URL": {
+							"value": "https://staging.api.url"
+						}
+					},
+					"routes": ["https://*.staging.api.custom-domain.com/*"]
+				},
+				"production": {
+					"secrets": {
+						"PROD_API_KEY": {
+							"env": "PROD_API_KEY"
+						}
+					},
+					"variables": {
+						"API_URL": {
+							"value": "https://prod.api.url"
+						},
+						"PAGE_TITLE": "global:PAGE_TITLE"
+					},
+					"routes": ["https://api.custom-domain.com/*"]
+				}
+			}
+		}
+	]
+}

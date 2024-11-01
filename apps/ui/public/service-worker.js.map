@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../../private/var/folders/kv/_19m74l15b32fcg93kzq0tmm0000gn/T/worker-entry-68a84ec320ffe056.js", "../../worker-1/src/index.ts"],
+  "sourcesContent": ["\nimport worker1 from '/Users/andy/dev/sw-worker/apps/worker-1/src/index.ts';\n\nexport default {\n  'worker-1': { fetch: worker1.fetch }\n};\n", "export default {\n\tasync fetch(request, env, ctx): Promise<Response> {\n\t\treturn new Response(\"Hello World!\");\n\t},\n} satisfies ExportedHandler<Env>;\n"],
+  "mappings": "8aAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,ICAA,IAAOC,EAAQ,CACd,MAAM,MAAMC,EAASC,EAAKC,EAAwB,CACjD,OAAO,IAAI,SAAS,cAAc,CACnC,CACD,EDDA,IAAOC,EAAQ,CACb,WAAY,CAAE,MAAOC,EAAQ,KAAM,CACrC",
+  "names": ["worker_entry_68a84ec320ffe056_exports", "__export", "worker_entry_68a84ec320ffe056_default", "src_default", "request", "env", "ctx", "worker_entry_68a84ec320ffe056_default", "src_default"]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "souvlaki-service-worker",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "build-service-worker": "bun run src/build-service-worker.ts"
+    }
+  }
+  

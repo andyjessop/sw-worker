@@ -1,0 +1,1 @@
+import "/Users/andy/dev/sw-worker/apps/worker-1/src/index.ts"

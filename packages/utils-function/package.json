@@ -1,0 +1,6 @@
+{
+  "name": "utils-function",
+  "scripts": {
+    "test": "bun test"
+  }
+}

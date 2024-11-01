@@ -1,0 +1,10 @@
+{
+	"workers": [
+		{
+			"bindings": {
+				"MY_KV": { "type": "kv_namespace", "id": "sdfsdf" }
+			},
+			"name": "worker-1"
+		}
+	]
+}

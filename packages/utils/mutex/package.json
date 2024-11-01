@@ -1,0 +1,6 @@
+{
+  "name": "mutex",
+  "scripts": {
+    "test": "bun test"
+  }
+}

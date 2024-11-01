@@ -1,0 +1,6 @@
+{
+  "name": "utils-string",
+  "scripts": {
+    "test": "bun test"
+  }
+}

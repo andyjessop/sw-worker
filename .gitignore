@@ -1,5 +1,7 @@
 node_modules
+tmp
 
+.wrangler
 .nx/cache
 .env
 .dev.vars

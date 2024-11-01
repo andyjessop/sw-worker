@@ -1,0 +1,353 @@
+{
+  "$ref": "#/definitions/souvlakiSchema",
+  "definitions": {
+    "souvlakiSchema": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "compatibility_date": {
+          "type": "string"
+        },
+        "compatibility_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "global": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "kv"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "durable_object"
+                  },
+                  "class_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "class_name"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "secret"
+                  },
+                  "env": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "env"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "variable"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "d1_database"
+                  },
+                  "database_name": {
+                    "type": "string"
+                  },
+                  "migrations_table": {
+                    "type": "string"
+                  },
+                  "migrations_dir": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "database_name",
+                  "migrations_table",
+                  "migrations_dir"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "worker"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "workers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "compatibility_date": {
+                "type": "string"
+              },
+              "compatbility_flags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "main": {
+                "type": "string"
+              },
+              "bindings": {
+                "type": "object",
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "const": "kv"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "const": "durable_object"
+                        },
+                        "class_name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "class_name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "env": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "env"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "database_name": {
+                          "type": "string"
+                        },
+                        "migrations_table": {
+                          "type": "string"
+                        },
+                        "migrations_dir": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "database_name",
+                        "migrations_table",
+                        "migrations_dir"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^global:"
+                    }
+                  ]
+                }
+              },
+              "github": {
+                "type": "object",
+                "properties": {
+                  "repo": {
+                    "type": "string"
+                  },
+                  "branch": {
+                    "type": "string"
+                  },
+                  "deploy_on_push": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "environments": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "dev": {
+                      "type": "object",
+                      "properties": {
+                        "main": {
+                          "type": "string"
+                        },
+                        "base_dir": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "main",
+                        "base_dir"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "secrets": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^global:"
+                          },
+                          {
+                            "$ref": "#/definitions/souvlakiSchema/properties/workers/items/properties/bindings/additionalProperties/anyOf/2"
+                          }
+                        ]
+                      }
+                    },
+                    "variables": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^global:"
+                          },
+                          {
+                            "$ref": "#/definitions/souvlakiSchema/properties/workers/items/properties/bindings/additionalProperties/anyOf/3"
+                          }
+                        ]
+                      }
+                    },
+                    "routes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "build": {
+                      "type": "object",
+                      "properties": {
+                        "command": {
+                          "type": "string"
+                        },
+                        "cwd": {
+                          "type": "string"
+                        },
+                        "built_worker": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "command",
+                        "cwd",
+                        "built_worker"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "secrets",
+                    "variables",
+                    "routes"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "name",
+              "bindings",
+              "environments"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "$schema",
+        "compatibility_date",
+        "compatibility_flags",
+        "global",
+        "workers"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
