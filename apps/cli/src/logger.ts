@@ -40,7 +40,7 @@ export class Logger {
 
 	subscribe(callback: (logEntry: LogEntry) => void): Subscription {
 		const subscription = this.logStream.subscribe(callback);
-		this.subscriptions.push(subscription); // Store each subscription
+		this.subscriptions.push(subscription);
 		return subscription;
 	}
 
